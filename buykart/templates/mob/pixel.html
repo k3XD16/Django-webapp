@@ -1,0 +1,22 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+<h1>Welcome to the Pixel Mobile Page</h1>
+
+<p><b>Mobile:</b> {{brand}} {{model}}</p>
+<p><b>Color:</b> {{color}}</p>
+<p><b>Processor:</b> {{processor}}</p>
+<p><b>RAM:</b> {{ram}}</p>
+<p><b>Rom:</b> {{rom}}</p>
+<p><b>Display:</b> {{display}}</p>
+<p><b>Camera:</b> {{camera}}</p>
+<p><b>Battery:</b> {{battery}}</p>
+<h3><b>Price:</b> {{price}}</h3>
+
+
+<form method="POST" action="counter">
+    {% csrf_token %}
+    <textarea name="text" id="textb"></textarea> <br><br>
+    
+    <input type="submit" id="textb"value="Submit">
+</form>
