@@ -1,0 +1,58 @@
+<h1>Login Now</h1>
+<style>
+    h1 {
+        color: hsl(123, 40%, 45%);
+    }
+    input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    input[type=submit] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    input[type=submit]:hover {
+        background-color: #45a049;
+    }
+    form {
+        width: 300px;
+        margin: 0 auto;
+    }
+    h1 {
+        text-align: center;
+    }
+    h3 {
+        text-align: center;
+    }
+    p {
+        font-size: 20px;
+        text-align: center;
+    }
+    h3 {
+        color: red;
+    }
+    a {
+        color: hsl(123, 40%, 45%);
+        text-align: center;
+    }
+</style>
+
+{% for message in messages %}
+    <h3 style="color: red;">{{ message }}</h3>
+{% endfor %}
+
+<form action="{% url 'login' %}" method="POST">
+    {% csrf_token %} 
+    <label for="name">Username</label><br>
+    <input type="text" name="username" placeholder="Username" required>
+    <label for="password">Password</label><br>
+    <input type="password" name="password" placeholder="Password" required>
+   <br> <input type="submit" name='submit'>
+   <p>Dont have an Account?</p>
+   <a href="{% url 'register' %}">Register</a>
+</form>

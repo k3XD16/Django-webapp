@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>eNno Bootstrap Template - Index</title>
+  <title>BuyKart</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -50,7 +50,6 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
           <li class="dropdown"><a href="#"><span>Mobiles</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
@@ -78,8 +77,13 @@
               <li><a href="#">Drop Down 4</a></li>
             </ul>
           </li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="getstarted scrollto" href="#about">Get Started</a></li>
+          <li><a class="nav-link scrollto" href="#about">Contact</a></li>
+          <li><a class="nav-link scrollto" href="#about">Kart</a></li>
+          {% if user.is_authenticated %}
+          <li><a class="getstarted scrollto" href="{% url 'login' %}">Logout</a></li>
+          {% else %}
+          <li><a class="getstarted scrollto" href="{% url 'register' %}">Login or Signup</a></li>
+          {% endif %}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -93,7 +97,12 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+          
+          {% if user.is_authenticated %}
+          <h1>Welcome {{user.username}}</h1>
+          {% else %}
           <h1>One stop solution </h1>
+          {% endif %}
           <h2>For all the Phones, Gadegets, Computer Peripherals and Accessories..</h2>
           <div class="d-flex">
             <a href="#about" class="btn-get-started scrollto">Get Started</a>
@@ -120,12 +129,6 @@
               <div class="icon"><i class="bi bi-laptop"></i></div>
               <h4 class="title"><a href="">{{feature.name}}</a></h4>
               <p class="description">{{feature.details}}</p>
-              {% if feature.is_active == True %}
-              <p><b>Active</b></p>
-              {% endif %}
-              {% if feature.is_active == False %}
-              <p><b>Not Active</b></p>
-              {% endif %}
             </div>
           </div>
           {% endfor %}

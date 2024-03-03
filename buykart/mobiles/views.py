@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib.auth.models import User, auth
+from django.contrib import messages
 from .models import Feature
 
 # Create your views here.
@@ -12,26 +14,53 @@ from .models import Feature
 #     return render(request,'mob/index.html', context)
 
 def index(request): 
-    feature1 = Feature()
-    feature1.id = 1
-    feature1.name = 'Trust'
-    feature1.details = 'We are a trusted brand in the market for 10 years now.'
-    feature1.is_active = True
-    
-    feature2 = Feature()
-    feature2.id = 1
-    feature2.name = 'Quality'
-    feature2.details = 'We provide the best quality products in the market at the best price.'
-    feature2.is_active = True
-    
-    feature3 = Feature()
-    feature3.id = 1
-    feature3.name = 'Fast Delivery'
-    feature3.details = 'We deliver the products within 24 hours of order placement'
-    feature3.is_active = True
-
-    features = [feature1, feature2, feature3]
+    features = Feature.objects.all()
     return render(request,'mob/index.html', {'features': features})
+
+def register(request):
+    
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+        
+        if password == confirm_password:
+            if User.objects.filter(email=email).exists():
+                messages.info(request, "Email already exists")
+                return redirect('register')
+            elif User.objects.filter(username=username).exists():
+                messages.info(request, "Username already exists")
+                return redirect('register')
+            else:
+                user = User.objects.create_user(username=username,
+                                                email=email,
+                                                password=password)
+                user.save()
+                return redirect('login')
+        else:
+            messages.info(request, "Password is not matching")
+            return redirect('register')    
+    else:
+        return render(request,'register.html')
+
+
+def login(request):
+    
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        user = auth.authenticate(username=username,password=password)
+        
+        if user is not None:
+            auth.login(request,user)
+            return redirect('/')
+        else:
+            messages.info(request, "Invalid credentials")
+            return redirect('login')
+    else:
+        return render(request, 'login.html')
 
 
 def pixel(request):

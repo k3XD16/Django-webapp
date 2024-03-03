@@ -1,0 +1,105 @@
+<h1>Sign Up</h1>
+
+<style>
+    h1 {
+        color: hsl(123, 40%, 45%);
+    }
+    input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    input[type=submit] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    input[type=submit]:hover {
+        background-color: #45a049;
+    }
+    form {
+        width: 300px;
+        margin: 0 auto;
+    }
+    h1 {
+        text-align: center;
+    }
+    h3 {
+        text-align: center;
+    }
+    p {
+        font-size: 20px;
+    }
+    h3 {
+        color: red;
+    }
+    a {
+        text-align: center;
+        display: block;
+    }
+    .form-group {
+        margin: 10px 0;
+    }
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .btn:hover {
+        background-color: #45a049;
+    }
+    a {
+        color: hsl(123, 40%, 45%);
+    }
+    button {
+        width: 100%;
+        text-align: center;
+    }
+
+</style>
+
+{% for message in messages %}
+    
+        <h3 style="color:red">{{ message }}</h3>
+    
+{% endfor %}
+
+<form method="POST" action="{% url 'register' %}">
+
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="name">Username</label><br>
+        <input type="text" name="username" id="username" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email</label><br>
+        <input type="email" name="email" id="email" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label><br>
+        <input type="password" name="password" id="password" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+        <label for="confirm_password">Confirm Password</label><br>
+        <input type="password" name="confirm_password" id="confirm_password" class="form-control" required>
+    </div>
+<br>
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+
+    <p style="text-align: center;">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+</form>
