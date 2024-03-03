@@ -80,9 +80,9 @@
           <li><a class="nav-link scrollto" href="#about">Contact</a></li>
           <li><a class="nav-link scrollto" href="#about">Kart</a></li>
           {% if user.is_authenticated %}
-          <li><a class="getstarted scrollto" href="{% url 'login' %}">Logout</a></li>
+          <li><a class="getstarted scrollto" href="logout">Logout</a></li>
           {% else %}
-          <li><a class="getstarted scrollto" href="{% url 'register' %}">Login or Signup</a></li>
+          <li><a class="getstarted scrollto" href="login">Login or Signup</a></li>
           {% endif %}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>

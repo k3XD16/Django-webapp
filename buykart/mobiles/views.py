@@ -62,6 +62,11 @@ def login(request):
     else:
         return render(request, 'login.html')
 
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
+
+
 
 def pixel(request):
     context ={
@@ -79,6 +84,9 @@ def pixel(request):
     return render(request, 'mob/pixel.html', context)
 
 def counter(request):
-    text = request.POST['text']
-    totalwords = len(text.split())
-    return render(request, 'mob/counter.html',{'amount': totalwords})
+    profile = ['mkhasi', 'khasi', 'khasim', 'mohamed khasim']
+    users = User.objects.all()
+    return render(request, 'mob/counter.html',{'users': users, 'profile': profile})
+
+def profile(request, name):
+    return render(request, 'profile.html', {'name': name})
